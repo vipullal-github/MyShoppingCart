@@ -73,12 +73,12 @@ class MockRepository implements RepositoryInterface {
   ];
 
   @override
-  List<ItemCategory> getAllCategories() {
-    return allCategories;
+  Future<List<ItemCategory>> getAllCategories() async {
+    return Future.delayed(const Duration(seconds: 5), () => allCategories);
   }
 
   @override
-  List<MasterListItem> getAllItems() {
-    return allItems;
+  Future<List<MasterListItem>> getAllItems() {
+    return Future.delayed(const Duration(seconds: 5), () => allItems);
   }
 }
