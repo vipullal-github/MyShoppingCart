@@ -1,8 +1,12 @@
 // ignore_for_file: avoid_print
 
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:my_shopping_cart/presentation/home_page/order_history_view.dart';
 import 'package:my_shopping_cart/presentation/home_page/shopping_cart_view.dart';
+import 'package:my_shopping_cart/presentation/shopping_cart_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../app_data_provider.dart';
 
@@ -16,12 +20,23 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int currentSheet = 0;
-  Future<void>? _loadState;
+  late Future<void> _loadState;
+
+  Future<void> _loadAllData() async {
+    Completer<void> c = Completer();
+    widget.provider.loadData().then((value) {
+      context
+          .read<ShoppingCartProvider>()
+          .createNewShoppingList()
+          .then((value) => c.complete());
+    });
+    return c.future;
+  }
 
   @override
   void initState() {
     super.initState();
-    _loadState = widget.provider.loadData();
+    _loadState = _loadAllData();
   }
 
   void onTabSelected(int index) {
@@ -36,7 +51,8 @@ class _HomePageState extends State<HomePage> {
 
   Widget _buildWidgets(BuildContext context) {
     if (currentSheet == 0) {
-      return ShoppingCartView(provider: widget.provider);
+      ShoppingCartProvider p = context.watch<ShoppingCartProvider>();
+      return ShoppingCartView(provider: p);
     } else {
       return const OrderHistoryView();
     }

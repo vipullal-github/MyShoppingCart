@@ -1,11 +1,12 @@
-import 'master_list_item.dart';
+import 'cart_item.dart';
+import 'item_category.dart';
 
 class ShoppingList {
   int id;
   String name;
   DateTime created;
   DateTime modified;
-  List<MasterListItem> _items = [];
+  final Map<ItemCategory, List<CartItem>> items = {};
 
   ShoppingList({
     required this.id,
