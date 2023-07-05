@@ -5,19 +5,54 @@ import 'package:my_shopping_cart/presentation/shopping_cart_provider.dart';
 import '../../domain/model/cart_item.dart';
 import '../../domain/model/item_category.dart';
 
-class ShoppingCartView extends StatelessWidget {
+class ShoppingCartTab extends StatelessWidget {
   final ShoppingCartProvider provider;
   final Future<ShoppingList> _future;
-  ShoppingCartView({super.key, required this.provider})
+  ShoppingCartTab({super.key, required this.provider})
       : _future = provider.createNewShoppingList();
 
-  List<Widget> _buildChildWidgets(BuildContext context, List<CartItem>? items) {
+  Widget _buildItemCard(BuildContext context, CartItem item) {
+    return Card(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(item.itemName, style: Theme.of(context).textTheme.bodyLarge),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Expanded(
+                flex: 5,
+                child: Text(
+                  item.description,
+                  style: Theme.of(context).textTheme.bodyMedium,
+                ),
+              ),
+              Expanded(
+                flex: 1,
+                child: Text(
+                  item.onOrder.toString(),
+                ),
+              )
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildChildWidgets(BuildContext context, List<CartItem>? items) {
     if (items == null) {
-      return [const Text("No Items")];
+      return const Text("No Items");
     } else {
-      return items.map((e) {
-        return Text(e.itemName);
-      }).toList();
+      return SizedBox(
+        height: 300,
+        child: ListView.builder(
+            itemCount: items.length,
+            padding: const EdgeInsets.all(12.0),
+            itemBuilder: (BuildContext context, int index) {
+              return _buildItemCard(context, items[index]);
+            }),
+      );
     }
   }
 
@@ -30,7 +65,7 @@ class ShoppingCartView extends StatelessWidget {
           ExpansionTile(
             title: Text(c.name),
             subtitle: Text(c.description),
-            children: _buildChildWidgets(context, itemMap[c]),
+            children: [_buildChildWidgets(context, itemMap[c])],
           ),
         );
       }

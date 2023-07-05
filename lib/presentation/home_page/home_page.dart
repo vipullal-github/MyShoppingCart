@@ -3,8 +3,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:my_shopping_cart/presentation/home_page/order_history_view.dart';
-import 'package:my_shopping_cart/presentation/home_page/shopping_cart_view.dart';
+import 'package:my_shopping_cart/presentation/home_page/order_history_tab.dart';
+import 'package:my_shopping_cart/presentation/home_page/shopping_cart_tab.dart';
 import 'package:my_shopping_cart/presentation/shopping_cart_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -52,9 +52,9 @@ class _HomePageState extends State<HomePage> {
   Widget _buildWidgets(BuildContext context) {
     if (currentSheet == 0) {
       ShoppingCartProvider p = context.watch<ShoppingCartProvider>();
-      return ShoppingCartView(provider: p);
+      return ShoppingCartTab(provider: p);
     } else {
-      return const OrderHistoryView();
+      return const OrderHistoryTab();
     }
   }
 

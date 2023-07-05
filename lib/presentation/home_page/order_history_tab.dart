@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class OrderHistoryView extends StatelessWidget {
-  const OrderHistoryView({super.key});
+class OrderHistoryTab extends StatelessWidget {
+  const OrderHistoryTab({super.key});
 
   @override
   Widget build(BuildContext context) {

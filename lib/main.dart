@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       onGenerateRoute: RoutingManager.routingFunction,
-      initialRoute: RoutingManager.homePage,
+      initialRoute: RoutingManager.testPage,
     );
   }
 }
