@@ -4,13 +4,30 @@ import '../domain/repository/repository_interface.dart';
 
 class MockRepository implements RepositoryInterface {
   List<ItemCategory> allCategories = [
-    ItemCategory(id: 1, name: "Produce", description: "Vegetables, Eggs, etc"),
     ItemCategory(
-        id: 2,
-        name: "Household Essentials",
-        description: "Dish washing soap, Cleaning "),
-    ItemCategory(id: 3, name: "Beauty Care", description: "Toothpaste, creams"),
-    ItemCategory(id: 4, name: "Beverages", description: "Softdrinks, Wine")
+      id: 1,
+      name: "Produce",
+      description: "Vegetables, Eggs, etc",
+      imageName: "vegetables.jpg",
+    ),
+    ItemCategory(
+      id: 2,
+      name: "Household Essentials",
+      description: "Dish washing soap, Cleaning ",
+      imageName: "vegetables.jpg",
+    ),
+    ItemCategory(
+      id: 3,
+      name: "Beauty Care",
+      description: "Toothpaste, creams",
+      imageName: "vegetables.jpg",
+    ),
+    ItemCategory(
+      id: 4,
+      name: "Beverages",
+      description: "Softdrinks, Wine",
+      imageName: "vegetables.jpg",
+    )
   ];
 
   List<MasterListItem> allItems = [

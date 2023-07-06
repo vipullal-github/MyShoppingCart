@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:my_shopping_cart/domain/model/shopping_list.dart';
 import 'package:my_shopping_cart/presentation/shopping_cart_provider.dart';
 
-import '../../domain/model/cart_item.dart';
-import '../../domain/model/item_category.dart';
+import '../../../../domain/model/cart_item.dart';
+import '../../../../domain/model/item_category.dart';
 
 class ShoppingCartTab extends StatelessWidget {
   final ShoppingCartProvider provider;

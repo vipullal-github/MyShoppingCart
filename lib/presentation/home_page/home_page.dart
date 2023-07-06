@@ -3,8 +3,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:my_shopping_cart/presentation/home_page/order_history_tab.dart';
-import 'package:my_shopping_cart/presentation/home_page/shopping_cart_tab.dart';
+import 'package:my_shopping_cart/presentation/home_page/tabs/order_history/order_history_tab.dart';
+import 'package:my_shopping_cart/presentation/home_page/tabs/shopping/shopping_cart_tab.dart';
 import 'package:my_shopping_cart/presentation/shopping_cart_provider.dart';
 import 'package:provider/provider.dart';
 
