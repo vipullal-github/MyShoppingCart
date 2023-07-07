@@ -59,7 +59,7 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/images/categories
+    - assets/images/categories/
   #   - images/a_dot_ham.jpeg
 
   # To add assets to your application, add an assets section, like this:

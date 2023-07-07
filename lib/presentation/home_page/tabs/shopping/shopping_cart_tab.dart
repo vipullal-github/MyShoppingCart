@@ -59,7 +59,7 @@ class ShoppingCartTab extends StatelessWidget {
   Widget _buildBody(BuildContext context, AsyncSnapshot<ShoppingList> data) {
     if (data.hasData) {
       List<Widget> topView = [];
-      Map<ItemCategory, List<CartItem>> itemMap = data.data!.items;
+      Map<ItemCategory, List<CartItem> > itemMap = data.data!.items;
       for (ItemCategory c in itemMap.keys) {
         topView.add(
           ExpansionTile(

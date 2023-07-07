@@ -8,25 +8,25 @@ class MockRepository implements RepositoryInterface {
       id: 1,
       name: "Produce",
       description: "Vegetables, Eggs, etc",
-      imageName: "vegetables.jpg",
+      imageName: "assets/images/categories/vegetables.jpg",
     ),
     ItemCategory(
       id: 2,
       name: "Household Essentials",
       description: "Dish washing soap, Cleaning ",
-      imageName: "vegetables.jpg",
+      imageName: "assets/images/categories/vegetables.jpg",
     ),
     ItemCategory(
       id: 3,
       name: "Beauty Care",
       description: "Toothpaste, creams",
-      imageName: "vegetables.jpg",
+      imageName: "assets/images/categories/vegetables.jpg",
     ),
     ItemCategory(
       id: 4,
       name: "Beverages",
       description: "Softdrinks, Wine",
-      imageName: "vegetables.jpg",
+      imageName: "assets/images/categories/vegetables.jpg",
     )
   ];
 

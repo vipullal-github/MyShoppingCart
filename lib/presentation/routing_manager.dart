@@ -20,7 +20,10 @@ class RoutingManager {
       case masterListPage:
         return MaterialPageRoute(builder: (_) => const MasterListPage());
       case testPage:
-        return MaterialPageRoute(builder: ( _ )=> const TestPage());
+        return MaterialPageRoute(builder: (BuildContext context) {
+          AppDataProvider p = context.read<AppDataProvider>();
+          return TestPage(provider: p);
+        });
       default:
         throw Exception("Invalid route ${settings.name}");
     }
