@@ -22,6 +22,18 @@ class _HomePageState extends State<HomePage> {
   int currentSheet = 0;
   late Future<void> _loadState;
 
+  /*
+    This is the place where the complete app is bootstrapped. 
+
+    Initialize the app. We first call the AppDataProvider to load all the AppData (which
+    means download all the categories and itemList). Once that is done, we call upon
+    the ShoppingCartProvider to create a new shopping list.
+
+    Note: This is not the correct solution. We should be loading a partially filled out list
+    from the local store, if it exists. This will happen if the user starts a shopping 
+    list, but switches out the application.
+  */
+
   Future<void> _loadAllData() async {
     Completer<void> c = Completer();
     widget.provider.loadData().then((value) {
@@ -49,10 +61,9 @@ class _HomePageState extends State<HomePage> {
     }
   }
 
-  Widget _buildWidgets(BuildContext context) {
+  Widget _buildPageTabs(BuildContext context) {
     if (currentSheet == 0) {
-      ShoppingCartProvider p = context.watch<ShoppingCartProvider>();
-      return ShoppingCartTab(provider: p);
+      return const ShoppingCartTab();
     } else {
       return const OrderHistoryTab();
     }
@@ -77,7 +88,7 @@ class _HomePageState extends State<HomePage> {
           case ConnectionState.active:
             return _loadingData(context);
           case ConnectionState.done:
-            return _buildWidgets(context);
+            return _buildPageTabs(context);
         }
       },
     );

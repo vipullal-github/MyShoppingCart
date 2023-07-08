@@ -7,13 +7,13 @@ import 'data/mock_repository.dart';
 
 void main() {
   AppDataProvider ap = AppDataProvider(repository: MockRepository());
-  ShoppingCartProvider sp = ShoppingCartProvider(mProvider: ap);
+  ShoppingCartProvider sp = ShoppingCartProvider();
 
   runApp(
     MultiProvider(
       providers: [
         ChangeNotifierProvider<AppDataProvider>(create: (_) => ap),
-        ChangeNotifierProvider<ShoppingCartProvider>(create: (context) => sp),
+        ChangeNotifierProvider<ShoppingCartProvider>(create: (_) => sp),
       ],
       builder: (context, child) => const MyApp(),
     ),
@@ -32,7 +32,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       onGenerateRoute: RoutingManager.routingFunction,
-      initialRoute: RoutingManager.testPage,
+      initialRoute: RoutingManager.homePage,
     );
   }
 }

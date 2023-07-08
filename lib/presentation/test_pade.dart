@@ -59,10 +59,12 @@ class _TestPageState extends State<TestPage> {
     return FutureBuilder(
       future: _loadState,
       builder: (BuildContext context, AsyncSnapshot<void> data) {
-        if (data.connectionState == ConnectionState.done) {
+        if (data.connectionState == ConnectionState.done && data.hasData) {
+          AppDataProvider provider = Provider.of(context);
           return Scaffold(
             appBar: AppBar(title: const Text("TestPage")),
-            body: CategorySliderWidget(provider: widget.provider),
+            body: CategorySliderWidget(
+                categories: provider.getCategories, listener: (_) {}),
           );
         } else {
           return _waiting(context);

@@ -21,24 +21,42 @@ class AppDataProvider with ChangeNotifier {
   List<MasterListItem> _mItemMasterList = [];
   List<MasterListItem> get getItemMasterList => _mItemMasterList;
 
+  // used by ShoppingCart tab
+  Map<int, List<CartItem>> _mCartItemMap = {};
+  Map<int, List<CartItem>> get categoryId2CartItemMap => _mCartItemMap;
+
   List<CartItem> _mCartItems = [];
   List<CartItem> get cartItems => _mCartItems;
 
   List<Order> _mOrderHistory = [];
   List<Order> get orderHistory => _mOrderHistory;
 
+  // -------------------------------------------
+  Map<int, List<CartItem>> buildCategory2CartItemMap() {
+    Map<int, List<CartItem>> map = {};
+    for (ItemCategory c in _mCategories) {
+      List<CartItem> items = getItemsForCategories(c.id);
+      map[c.id] = items;
+    }
+    return map;
+  }
+
+  // -------------------------------------------
   void _doLoadData(Completer c) async {
     _mCategories = await repository.getAllCategories();
     _mItemMasterList = await repository.getAllItems();
+    _mCartItemMap = buildCategory2CartItemMap();
     c.complete();
   }
 
+  // -------------------------------------------
   Future<void> loadData() async {
     Completer<void> completer = Completer<void>();
     _doLoadData(completer);
     return completer.future;
   }
 
+  // -------------------------------------------
   List<CartItem> getItemsForCategories(int selectCat) {
     List<CartItem> items = _mItemMasterList
         .where((e) => e.categoryId == selectCat)

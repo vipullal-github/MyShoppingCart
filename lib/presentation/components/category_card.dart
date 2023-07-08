@@ -14,30 +14,33 @@ class CategoryCard extends StatelessWidget {
         .primaryTextTheme
         .bodySmall!
         .copyWith(color: Colors.white);
-    return Padding(
-      padding: const EdgeInsets.only(left: 10),
-      child: SizedBox(
-          width: 120,
-          height: 60,
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(10.0),
-            child: Stack(
-              alignment: Alignment.topCenter,
-              children: [
-                Image.asset(
-                  category.imageName,
-                  fit: BoxFit.fill,
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Text(
-                    category.description,
-                    style: ts,
+    return GestureDetector(
+      onTap: onPressed,
+      child: Padding(
+        padding: const EdgeInsets.only(left: 10),
+        child: SizedBox(
+            width: 120,
+            height: 60,
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(10.0),
+              child: Stack(
+                alignment: Alignment.topCenter,
+                children: [
+                  Image.asset(
+                    category.imageName,
+                    fit: BoxFit.fill,
                   ),
-                ),
-              ],
-            ),
-          )),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Text(
+                      category.description,
+                      style: ts,
+                    ),
+                  ),
+                ],
+              ),
+            )),
+      ),
     );
   }
 }

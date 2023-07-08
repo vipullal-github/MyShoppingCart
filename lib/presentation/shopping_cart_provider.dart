@@ -2,30 +2,18 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import '../domain/model/cart_item.dart';
-import '../domain/model/item_category.dart';
-import '../domain/model/master_list_item.dart';
 import '../domain/model/shopping_list.dart';
-import 'app_data_provider.dart';
 
 class ShoppingCartProvider with ChangeNotifier {
-  final AppDataProvider mProvider;
+  ShoppingList? _shoppingList;
 
-  ShoppingCartProvider({required this.mProvider});
+  ShoppingCartProvider();
 
   void _doCreateNewShoppingList(Completer<ShoppingList> c) async {
     ShoppingList newList = ShoppingList.newRecord(
         name: "Shopping List",
         created: DateTime.now(),
         modified: DateTime.now());
-    List<MasterListItem> allItems = mProvider.getItemMasterList;
-    List<ItemCategory> categories = mProvider.getCategories;
-    for (ItemCategory category in categories) {
-      List<CartItem> items =
-          allItems.where((item) => item.categoryId == category.id).map((e) {
-        return CartItem.fromMasterItem(e);
-      }).toList();
-      newList.items[category] = items;
-    }
     c.complete(newList);
   }
 
@@ -33,5 +21,20 @@ class ShoppingCartProvider with ChangeNotifier {
     Completer<ShoppingList> c = Completer();
     _doCreateNewShoppingList(c);
     return c.future;
+  }
+
+  void addCartItem(CartItem item) {
+    // TODO: This should be a useCase
+    assert(_shoppingList != null);
+    assert(item.onOrder > 0);
+    assert(item.usualPrice >= 0.0);
+    for (var element in _shoppingList!.itemList) {
+      if (element.id == item.id) {
+        element.onOrder += item.onOrder;
+        return;
+      }
+    }
+    // Item does not exist: Add it
+    _shoppingList!.itemList.add(item);
   }
 }

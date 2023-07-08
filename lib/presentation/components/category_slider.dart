@@ -1,31 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:my_shopping_cart/presentation/components/category_card.dart';
-import '../app_data_provider.dart';
 import '../../domain/model/item_category.dart';
 
-class CategorySliderWidget extends StatefulWidget {
-  final AppDataProvider provider;
-  const CategorySliderWidget({super.key, required this.provider});
+typedef CategoryClickListener = void Function(int categoryId);
 
-  @override
-  State<CategorySliderWidget> createState() => _CategorySliderWidgetState();
-}
-
-
-class _CategorySliderWidgetState extends State<CategorySliderWidget> {
-  late List<ItemCategory> categories;
-
-  @override
-  void initState() {
-    super.initState();
-    categories = widget.provider.getCategories;
-    print("Found ${categories.length} items");
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-  }
+class CategorySliderWidget extends StatelessWidget {
+  final List<ItemCategory> categories;
+  final CategoryClickListener listener;
+  const CategorySliderWidget(
+      {super.key, required this.categories, required this.listener});
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +23,7 @@ class _CategorySliderWidgetState extends State<CategorySliderWidget> {
             children: categories.map((e) {
               return CategoryCard(
                 category: e,
-                onPressed: () {},
+                onPressed: () => listener(e.id),
               );
             }).toList(),
           ),
