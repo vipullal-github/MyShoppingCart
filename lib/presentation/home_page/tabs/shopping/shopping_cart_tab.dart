@@ -25,39 +25,12 @@ class _ShoppingCartTabState extends State<ShoppingCartTab> {
     super.initState();
   }
 
-  // Widget _buildItemCard(BuildContext context, CartItem item) {
-  //   return Card(
-  //     child: Column(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: [
-  //         Text(item.itemName, style: Theme.of(context).textTheme.bodyLarge),
-  //         Row(
-  //           mainAxisAlignment: MainAxisAlignment.start,
-  //           children: [
-  //             Expanded(
-  //               flex: 5,
-  //               child: Text(
-  //                 item.description,
-  //                 style: Theme.of(context).textTheme.bodyMedium,
-  //               ),
-  //             ),
-  //             Expanded(
-  //               flex: 1,
-  //               child: Text(
-  //                 item.onOrder.toString(),
-  //               ),
-  //             )
-  //           ],
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-
   Widget _buildItemListForCurentCategory(BuildContext context) {
     List<CartItem>? items = itemMap[currrentCategoryId];
-    if (items == null) {
-      return const Text("No Items in this category");
+    if (items == null || items.isEmpty) {
+      return const Center(
+        child: Text("No Items in this category"),
+      );
     } else {
       return ListView.builder(
         shrinkWrap: true,
@@ -79,18 +52,22 @@ class _ShoppingCartTabState extends State<ShoppingCartTab> {
   @override
   Widget build(BuildContext context) {
     AppDataProvider p = context.read<AppDataProvider>();
-    return Column(
-      children: [
-        const SizedBox(height: 10),
-        CategorySliderWidget(
-          categories: p.getCategories,
-          listener: onCategorySelectionChanged,
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        _buildItemListForCurentCategory(context)
-      ],
+    return SafeArea(
+      child: Column(
+        children: [
+          const SizedBox(height: 10),
+          CategorySliderWidget(
+            categories: p.getCategories,
+            listener: onCategorySelectionChanged,
+          ),
+          const SizedBox(
+            height: 10,
+          ),
+          Expanded(
+            child: _buildItemListForCurentCategory(context),
+          )
+        ],
+      ),
     );
   }
 }

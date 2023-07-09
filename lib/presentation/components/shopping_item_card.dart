@@ -8,8 +8,28 @@ class ShoppingItemCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextStyle? tsHeading = Theme.of(context).textTheme.bodyMedium;
+
     return Card(
-      child: Text(cartItem.description),
+      child: Row(
+        children: [
+          SizedBox(
+            width: 100,
+            height: 100,
+            child: Image.asset("assets/images/product_images/grapes.jpeg"),
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                cartItem.itemName,
+                style: tsHeading,
+              ),
+              Text(cartItem.description)
+            ],
+          ),
+        ],
+      ),
     );
   }
 }

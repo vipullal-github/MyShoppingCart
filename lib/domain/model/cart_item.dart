@@ -9,17 +9,18 @@ class CartItem extends MasterListItem {
       required super.description,
       required super.categoryId,
       required super.unit,
-      required super.usualPrice})
+      required super.usualPrice,
+      super.image})
       : onOrder = 0.0;
 
-  factory CartItem.fromMasterItem
-  (MasterListItem item) {
+  factory CartItem.fromMasterItem(MasterListItem item) {
     return CartItem(
         id: item.id,
         itemName: item.itemName,
         description: item.description,
         categoryId: item.categoryId,
         unit: item.unit,
-        usualPrice: item.usualPrice);
+        usualPrice: item.usualPrice,
+        image: item.image);
   }
 }

@@ -5,6 +5,7 @@ class MasterListItem {
   String description;
   double usualPrice;
   String unit;
+  String? image;
 
   MasterListItem(
       {required this.id,
@@ -12,15 +13,15 @@ class MasterListItem {
       required this.itemName,
       required this.description,
       required this.usualPrice,
-      required this.unit});
+      required this.unit,
+      this.image});
 
   MasterListItem.newRecord(
       {required this.categoryId,
       required this.itemName,
       required this.description,
       required this.usualPrice,
-      required this.unit})
+      required this.unit,
+      this.image})
       : id = -1;
 }
-
-
