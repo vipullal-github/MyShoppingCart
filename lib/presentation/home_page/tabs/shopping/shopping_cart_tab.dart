@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_shopping_cart/presentation/components/shopping_item_card.dart';
 import 'package:provider/provider.dart';
 import '../../../../presentation/components/category_slider.dart';
 import '../../../../domain/model/cart_item.dart';
@@ -24,48 +25,47 @@ class _ShoppingCartTabState extends State<ShoppingCartTab> {
     super.initState();
   }
 
-  Widget _buildItemCard(BuildContext context, CartItem item) {
-    return Card(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(item.itemName, style: Theme.of(context).textTheme.bodyLarge),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Expanded(
-                flex: 5,
-                child: Text(
-                  item.description,
-                  style: Theme.of(context).textTheme.bodyMedium,
-                ),
-              ),
-              Expanded(
-                flex: 1,
-                child: Text(
-                  item.onOrder.toString(),
-                ),
-              )
-            ],
-          ),
-        ],
-      ),
-    );
-  }
+  // Widget _buildItemCard(BuildContext context, CartItem item) {
+  //   return Card(
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Text(item.itemName, style: Theme.of(context).textTheme.bodyLarge),
+  //         Row(
+  //           mainAxisAlignment: MainAxisAlignment.start,
+  //           children: [
+  //             Expanded(
+  //               flex: 5,
+  //               child: Text(
+  //                 item.description,
+  //                 style: Theme.of(context).textTheme.bodyMedium,
+  //               ),
+  //             ),
+  //             Expanded(
+  //               flex: 1,
+  //               child: Text(
+  //                 item.onOrder.toString(),
+  //               ),
+  //             )
+  //           ],
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
-  Widget _buildItemList(BuildContext context) {
+  Widget _buildItemListForCurentCategory(BuildContext context) {
     List<CartItem>? items = itemMap[currrentCategoryId];
     if (items == null) {
-      return const Text("No Items");
+      return const Text("No Items in this category");
     } else {
-      return SizedBox(
-        height: 300,
-        child: ListView.builder(
-            itemCount: items.length,
-            padding: const EdgeInsets.all(12.0),
-            itemBuilder: (BuildContext context, int index) {
-              return _buildItemCard(context, items[index]);
-            }),
+      return ListView.builder(
+        shrinkWrap: true,
+        itemCount: items.length,
+        padding: const EdgeInsets.all(12.0),
+        itemBuilder: (BuildContext context, int index) {
+          return ShoppingItemCard(cartItem: items[index]);
+        },
       );
     }
   }
@@ -86,7 +86,10 @@ class _ShoppingCartTabState extends State<ShoppingCartTab> {
           categories: p.getCategories,
           listener: onCategorySelectionChanged,
         ),
-        _buildItemList(context),
+        const SizedBox(
+          height: 10,
+        ),
+        _buildItemListForCurentCategory(context)
       ],
     );
   }
