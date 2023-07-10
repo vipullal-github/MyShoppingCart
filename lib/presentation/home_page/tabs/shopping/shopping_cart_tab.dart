@@ -33,7 +33,6 @@ class _ShoppingCartTabState extends State<ShoppingCartTab> {
       );
     } else {
       return ListView.builder(
-        shrinkWrap: true,
         itemCount: items.length,
         padding: const EdgeInsets.all(12.0),
         itemBuilder: (BuildContext context, int index) {
