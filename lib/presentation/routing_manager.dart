@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_shopping_cart/presentation/app_data_provider.dart';
+import 'package:my_shopping_cart/presentation/shopping_cart_page/shopping_cart_page.dart';
 import 'package:my_shopping_cart/presentation/test_pade.dart';
 import 'package:provider/provider.dart';
 import 'home_page/home_page.dart';
@@ -8,6 +9,7 @@ import 'master_list/master_list_page.dart';
 class RoutingManager {
   static const String homePage = "/";
   static const String masterListPage = "/masteListPage";
+  static const String shoppingCartPage = "/shoppingCartPage";
   static const String testPage = "/testPage";
 
   static Route<dynamic> routingFunction(RouteSettings settings) {
@@ -24,6 +26,11 @@ class RoutingManager {
           AppDataProvider p = context.read<AppDataProvider>();
           return TestPage(provider: p);
         });
+      case shoppingCartPage:
+        return MaterialPageRoute(builder: (BuildContext context) {
+          return const ShoppingCartPage();
+        });
+
       default:
         throw Exception("Invalid route ${settings.name}");
     }

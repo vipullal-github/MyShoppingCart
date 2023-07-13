@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_shopping_cart/presentation/shopping_cart_provider.dart';
+import 'package:provider/provider.dart';
 
 import '../../domain/model/cart_item.dart';
 
@@ -25,16 +27,27 @@ class _ShoppingItemCardState extends State<ShoppingItemCard> {
     _editController.dispose();
   }
 
-  void _incrementOnOrder() {
+  void _incrementOnOrder(BuildContext context) {
     widget.cartItem.onOrder += 1;
     _editController.text = widget.cartItem.onOrder.toString();
+    context.read<ShoppingCartProvider>().updateCart(widget.cartItem);
   }
 
-  void _decrementOnOrder() {
+  void _decrementOnOrder(BuildContext context) {
     if (widget.cartItem.onOrder > 0) {
       widget.cartItem.onOrder -= 1;
       _editController.text = widget.cartItem.onOrder.toString();
+      context.read<ShoppingCartProvider>().updateCart(widget.cartItem);
     }
+  }
+
+  void _updateItemCount(BuildContext context, String value) {
+    try {
+      widget.cartItem.onOrder = double.parse(value);
+    } catch (e) {
+      widget.cartItem.onOrder = 0;
+    }
+    context.read<ShoppingCartProvider>().updateCart(widget.cartItem);
   }
 
   Widget _upDownControl(BuildContext context) {
@@ -42,7 +55,7 @@ class _ShoppingItemCardState extends State<ShoppingItemCard> {
       child: Row(
         children: [
           IconButton(
-            onPressed: _decrementOnOrder,
+            onPressed: () => _decrementOnOrder(context),
             icon: Icon(
               Icons.remove,
               size: 24,
@@ -53,6 +66,7 @@ class _ShoppingItemCardState extends State<ShoppingItemCard> {
             width: 80,
             child: TextField(
               maxLength: 5,
+              onChanged: (value) => _updateItemCount(context, value),
               controller: _editController,
               keyboardType: TextInputType.number,
               decoration: const InputDecoration(
@@ -63,7 +77,7 @@ class _ShoppingItemCardState extends State<ShoppingItemCard> {
             ),
           ),
           IconButton(
-            onPressed: _incrementOnOrder,
+            onPressed: () => _incrementOnOrder(context),
             icon: Icon(
               Icons.add,
               size: 24,
