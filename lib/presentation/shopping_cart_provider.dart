@@ -7,7 +7,9 @@ import '../domain/model/shopping_list.dart';
 class ShoppingCartProvider with ChangeNotifier {
   ShoppingList? _shoppingList;
 
-  int get ItemCount => _shoppingList?.itemList.length ?? 0;
+  int get itemCount => _shoppingList?.itemList.length ?? 0;
+  double _total = 0.0;
+  double get totalAmount => _total;
 
   ShoppingCartProvider();
 
@@ -26,10 +28,20 @@ class ShoppingCartProvider with ChangeNotifier {
     return c.future;
   }
 
+  List<CartItem> getCartItems() => _shoppingList!.itemList;
+
+  void _recalcTotal() {
+    double total = 0.0;
+    for (var element in _shoppingList!.itemList) {
+      total += element.onOrder * element.usualPrice;
+    }
+    _total = total;
+  }
+
   void updateCart(CartItem item) {
     // TODO: This should be a useCase
     assert(_shoppingList != null);
-    assert(item.onOrder > 0);
+    assert(item.onOrder >= 0);
     assert(item.usualPrice >= 0.0);
     bool found = false;
     for (var element in _shoppingList!.itemList) {
@@ -46,6 +58,7 @@ class ShoppingCartProvider with ChangeNotifier {
       // Item does not exist: Add it
       _shoppingList!.itemList.add(item);
     }
+    _recalcTotal();
     notifyListeners();
   }
 }

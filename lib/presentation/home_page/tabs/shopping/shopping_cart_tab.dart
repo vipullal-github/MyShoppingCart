@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_shopping_cart/presentation/components/shopping_item_card.dart';
+import 'package:my_shopping_cart/presentation/shopping_cart_provider.dart';
 import 'package:provider/provider.dart';
 import '../../../../presentation/components/category_slider.dart';
 import '../../../../domain/model/cart_item.dart';
@@ -51,6 +52,7 @@ class _ShoppingCartTabState extends State<ShoppingCartTab> {
   @override
   Widget build(BuildContext context) {
     AppDataProvider p = context.read<AppDataProvider>();
+    context.watch<ShoppingCartProvider>();
     return SafeArea(
       child: Column(
         children: [

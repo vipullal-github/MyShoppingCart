@@ -103,7 +103,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   List<Widget> _buildPageActions(BuildContext context) {
-    int count = context.watch<ShoppingCartProvider>().ItemCount;
+    int count = context.watch<ShoppingCartProvider>().itemCount;
     List<Widget> actions = [];
     if (currentSheet == 0) {
       actions.add(IconButton(
