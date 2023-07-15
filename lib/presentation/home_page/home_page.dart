@@ -3,8 +3,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:my_shopping_cart/presentation/home_page/tabs/order_history/order_history_tab.dart';
 import 'package:my_shopping_cart/presentation/home_page/tabs/shopping/shopping_cart_tab.dart';
+import 'package:my_shopping_cart/presentation/routing_manager.dart';
 import 'package:my_shopping_cart/presentation/shopping_cart_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -94,17 +96,67 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  void _switchToCartView(BuildContext context) {
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      Navigator.of(context).pushNamed(RoutingManager.shoppingCartPage);
+    });
+  }
+
+  List<Widget> _buildPageActions(BuildContext context) {
+    int count = context.watch<ShoppingCartProvider>().itemCount;
+    List<Widget> actions = [];
+    if (currentSheet == 0) {
+      actions.add(IconButton(
+        onPressed: () {},
+        icon: const Icon(Icons.filter_list),
+      ));
+      Widget cart = Stack(
+        children: [
+          IconButton(
+            onPressed: () => _switchToCartView(context),
+            icon: const Icon(Icons.shopping_cart),
+          ),
+          count != 0
+              ? Positioned(
+                  child: Container(
+                    padding: const EdgeInsets.all(2),
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(6),
+                    ),
+                    constraints: const BoxConstraints(
+                      minWidth: 14,
+                      minHeight: 14,
+                    ),
+                    child: Text(
+                      '$count',
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 8,
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                )
+              : Container()
+        ],
+      );
+      actions.add(cart);
+
+      // actions.add(IconButton(
+      //   onPressed: () {},
+      //   icon: const Icon(Icons.shopping_cart),
+      // ));
+    }
+    return actions;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text("HomePage"),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.filter_list),
-          )
-        ],
+        actions: _buildPageActions(context),
       ),
       bottomNavigationBar: BottomNavigationBar(
           currentIndex: currentSheet,

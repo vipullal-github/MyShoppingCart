@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:my_shopping_cart/presentation/routing_manager.dart';
 import 'package:my_shopping_cart/presentation/shopping_cart_provider.dart';
 import 'package:provider/provider.dart';
 import './presentation/app_data_provider.dart';
 import 'data/mock_repository.dart';
 
-void main() {
+void bootstrapApp() {
   AppDataProvider ap = AppDataProvider(repository: MockRepository());
   ShoppingCartProvider sp = ShoppingCartProvider();
 
@@ -18,6 +19,14 @@ void main() {
       builder: (context, child) => const MyApp(),
     ),
   );
+}
+
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]).then((value) => bootstrapApp());
 }
 
 class MyApp extends StatelessWidget {

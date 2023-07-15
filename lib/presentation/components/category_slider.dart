@@ -4,6 +4,7 @@ import '../../domain/model/item_category.dart';
 
 typedef CategoryClickListener = void Function(int categoryId);
 
+// TODO: We need to change this widget to use ListView.builder. See Video by HeyFlutter on Youtube
 class CategorySliderWidget extends StatelessWidget {
   final List<ItemCategory> categories;
   final CategoryClickListener listener;
@@ -12,23 +13,16 @@ class CategorySliderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const SizedBox(
-          height: 20,
-        ),
-        SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            children: categories.map((e) {
-              return CategoryCard(
-                category: e,
-                onPressed: () => listener(e.id),
-              );
-            }).toList(),
-          ),
-        ),
-      ],
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      child: Row(
+        children: categories.map((e) {
+          return CategoryCard(
+            category: e,
+            onPressed: () => listener(e.id),
+          );
+        }).toList(),
+      ),
     );
   }
 }
