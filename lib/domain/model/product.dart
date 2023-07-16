@@ -1,4 +1,4 @@
-class MasterListItem {
+class Product {
   int id;
   int categoryId;
   String itemName;
@@ -8,7 +8,7 @@ class MasterListItem {
   bool isFavorite;
   String? image;
 
-  MasterListItem(
+  Product(
       {required this.id,
       required this.categoryId,
       required this.itemName,
@@ -18,7 +18,7 @@ class MasterListItem {
       this.image,
       this.isFavorite = false});
 
-  MasterListItem.newRecord(
+  Product.newRecord(
       {required this.categoryId,
       required this.itemName,
       required this.description,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:my_shopping_cart/domain/model/item_category.dart';
+import 'package:my_shopping_cart/domain/model/product_category.dart';
 
 class CategoryCard extends StatelessWidget {
-  final ItemCategory category;
+  final ProductCategory category;
   final GestureTapCallback onPressed;
 
   const CategoryCard(

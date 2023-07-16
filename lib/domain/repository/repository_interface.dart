@@ -1,7 +1,7 @@
-import 'package:my_shopping_cart/domain/model/master_list_item.dart';
-import '../model/item_category.dart';
+import 'package:my_shopping_cart/domain/model/product.dart';
+import '../model/product_category.dart';
 
 abstract class RepositoryInterface {
-  Future<List<ItemCategory>> getAllCategories();
-  Future<List<MasterListItem>> getAllItems();
+  Future<List<ProductCategory>> getAllCategories();
+  Future<List<Product>> getAllItems();
 }

@@ -1,6 +1,6 @@
-import 'master_list_item.dart';
+import 'product.dart';
 
-class CartItem extends MasterListItem {
+class CartItem extends Product {
   double onOrder;
 
   CartItem(
@@ -13,7 +13,7 @@ class CartItem extends MasterListItem {
       super.image})
       : onOrder = 0.0;
 
-  factory CartItem.fromMasterItem(MasterListItem item) {
+  factory CartItem.fromMasterItem(Product item) {
     return CartItem(
         id: item.id,
         itemName: item.itemName,

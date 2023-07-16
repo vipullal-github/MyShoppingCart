@@ -1,16 +1,16 @@
-class ItemCategory {
+class ProductCategory {
   int id;
   String name;
   String description;
   String imageName;
 
-  ItemCategory(
+  ProductCategory(
       {required this.id,
       required this.name,
       required this.description,
       required this.imageName});
 
-  ItemCategory.newItem(
+  ProductCategory.newItem(
       {required this.name, required this.description, required this.imageName})
       : id = -1;
 }
