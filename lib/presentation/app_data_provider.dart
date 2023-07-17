@@ -4,8 +4,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import '../domain/repository/repository_interface.dart';
-import '../domain/model/item_category.dart';
-import '../domain/model/master_list_item.dart';
+import '../domain/model/product_category.dart';
+import '../domain/model/product.dart';
 import '../domain/model/cart_item.dart';
 import '../domain/model/order.dart';
 
@@ -15,11 +15,11 @@ class AppDataProvider with ChangeNotifier {
 
   AppDataProvider({required this.repository});
 
-  List<ItemCategory> _mCategories = [];
-  List<ItemCategory> get getCategories => _mCategories;
+  List<ProductCategory> _mCategories = [];
+  List<ProductCategory> get getCategories => _mCategories;
 
-  List<MasterListItem> _mItemMasterList = [];
-  List<MasterListItem> get getItemMasterList => _mItemMasterList;
+  List<Product> _mItemMasterList = [];
+  List<Product> get getItemMasterList => _mItemMasterList;
 
   // used by ShoppingCart tab
   Map<int, List<CartItem>> _mCartItemMap = {};
@@ -34,7 +34,7 @@ class AppDataProvider with ChangeNotifier {
   // -------------------------------------------
   Map<int, List<CartItem>> buildCategory2CartItemMap() {
     Map<int, List<CartItem>> map = {};
-    for (ItemCategory c in _mCategories) {
+    for (ProductCategory c in _mCategories) {
       List<CartItem> items = getItemsForCategories(c.id);
       map[c.id] = items;
     }
