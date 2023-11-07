@@ -22,6 +22,8 @@ class _ShoppingCartTabState extends State<ShoppingCartTab> {
     AppDataProvider p = context.read<AppDataProvider>();
     itemMap = p.categoryId2CartItemMap;
     assert(itemMap.isNotEmpty);
+    ShoppingCartProvider sp = context.read<ShoppingCartProvider>();
+    sp.buildFavoritesList( itemMap );
     currrentCategoryId = itemMap.keys.first;
     super.initState();
   }

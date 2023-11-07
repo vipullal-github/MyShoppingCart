@@ -4,6 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:my_shopping_cart/presentation/home_page/tabs/favourites/favourites_tab.dart';
 import 'package:my_shopping_cart/presentation/home_page/tabs/order_history/order_history_tab.dart';
 import 'package:my_shopping_cart/presentation/home_page/tabs/shopping/shopping_cart_tab.dart';
 import 'package:my_shopping_cart/presentation/routing_manager.dart';
@@ -66,6 +67,8 @@ class _HomePageState extends State<HomePage> {
   Widget _buildPageTabs(BuildContext context) {
     if (currentSheet == 0) {
       return const ShoppingCartTab();
+    } else if (currentSheet == 1) {
+      return const FavouritesTab();
     } else {
       return const OrderHistoryTab();
     }
@@ -166,6 +169,7 @@ class _HomePageState extends State<HomePage> {
               icon: Icon(Icons.shopping_cart),
               label: 'Cart',
             ),
+            BottomNavigationBarItem(icon: Icon(Icons.favorite), label: "Fav"),
             BottomNavigationBarItem(
               icon: Icon(Icons.history),
               label: 'History',

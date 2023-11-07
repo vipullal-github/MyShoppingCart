@@ -52,7 +52,8 @@ class MockRepository implements RepositoryInterface {
         unit: "kg",
         usualPrice: 2.30,
         createDate: DateTime.now(),
-        lastModified: DateTime.now()),
+        lastModified: DateTime.now(),
+        isFavorite: true),
     Product(
         id: 3,
         categoryId: 1,
@@ -61,7 +62,8 @@ class MockRepository implements RepositoryInterface {
         unit: "kg",
         usualPrice: 2.30,
         createDate: DateTime.now(),
-        lastModified: DateTime.now()),
+        lastModified: DateTime.now(),
+        isFavorite: true),
     Product(
         id: 4,
         categoryId: 1,

@@ -64,4 +64,22 @@ class AppDataProvider with ChangeNotifier {
         .toList();
     return items;
   }
+
+  // -------------------------------------------
+  List<Product> buildFavouritesList() {
+    List<Product> fav =
+        _mItemMasterList.where((element) => element.isFavorite).toList();
+    return fav;
+  }
+
+  // -------------------------------------------
+  void setFavoriteFlagOnProduct(int id, bool isFavourite) {
+    // TODO: propogate this to the repository
+    try {
+      Product p = _mItemMasterList.firstWhere((element) => element.id == id);
+      p.isFavorite = isFavourite;
+    } catch (e) {
+      // silent fail !!!
+    }
+  }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_shopping_cart/presentation/app_data_provider.dart';
 import 'package:my_shopping_cart/presentation/shopping_cart_provider.dart';
 import 'package:provider/provider.dart';
 
@@ -98,6 +99,11 @@ class _ShoppingItemCardState extends State<ShoppingItemCard> {
     );
   }
 
+  void onFavoriteIconTapped(BuildContext context) {
+    AppDataProvider p = context.read<AppDataProvider>();
+    context.read<ShoppingCartProvider>().onFavoriteIconTapped(widget.cartItem, p );
+  }
+
   @override
   Widget build(BuildContext context) {
     TextStyle? tsHeading = Theme.of(context)
@@ -139,7 +145,14 @@ class _ShoppingItemCardState extends State<ShoppingItemCard> {
                   _upDownControl(context),
                 ],
               ),
-            )
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.favorite,
+                color: widget.cartItem.isFavorite ? Colors.red : Colors.grey,
+              ),
+              onPressed: () => onFavoriteIconTapped(context),
+            ),
           ],
         ),
       ),

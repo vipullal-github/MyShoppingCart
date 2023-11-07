@@ -3,9 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import '../domain/model/cart_item.dart';
 import '../domain/model/shopping_list.dart';
+import 'app_data_provider.dart';
 
 class ShoppingCartProvider with ChangeNotifier {
   ShoppingList? _shoppingList;
+
+  final List<CartItem> _favouritesList = [];
+  List<CartItem> get favouritesList => _favouritesList;
 
   int get itemCount => _shoppingList?.itemList.length ?? 0;
   double _total = 0.0;
@@ -59,6 +63,34 @@ class ShoppingCartProvider with ChangeNotifier {
       _shoppingList!.itemList.add(item);
     }
     _recalcTotal();
+    notifyListeners();
+  }
+
+  // ------------------------------------------------------------
+  void buildFavoritesList(Map<int, List<CartItem>> itemMap) {
+    _favouritesList.clear();
+    itemMap.forEach((int catId, List<CartItem> items) {
+      for (CartItem ci in items) {
+        if (ci.isFavorite) {
+          _favouritesList.add(ci);
+        }
+      }
+    });
+  }
+
+  // NB: There are two sources of truth here. The flag is in the
+  // CartItem which was copied from MasterItemList. The flag
+  // has to be updated in both places.
+  void onFavoriteIconTapped(CartItem item, AppDataProvider p) {
+    if (item.isFavorite) {
+      item.isFavorite = false;
+      _favouritesList.remove(item);
+      p.setFavoriteFlagOnProduct(item.id, false);
+    } else {
+      item.isFavorite = true;
+      _favouritesList.add(item);
+      p.setFavoriteFlagOnProduct(item.id, true);
+    }
     notifyListeners();
   }
 }
