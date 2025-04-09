@@ -13,7 +13,7 @@ class CategoryCard extends StatelessWidget {
     TextStyle ts = Theme.of(context)
         .primaryTextTheme
         .bodySmall!
-        .copyWith(color: Colors.white);
+        .copyWith(color: Colors.black);
     return GestureDetector(
       onTap: onPressed,
       child: Padding(
@@ -29,9 +29,11 @@ class CategoryCard extends StatelessWidget {
                   Image.asset(
                     category.imageName,
                     fit: BoxFit.fill,
+                    color: Colors.black.withAlpha(10), // Lower alpha
+                    colorBlendMode: BlendMode.darken,
                   ),
                   Align(
-                    alignment: Alignment.bottomCenter,
+                    alignment: Alignment.topCenter,
                     child: Text(
                       category.description,
                       style: ts,

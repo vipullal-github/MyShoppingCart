@@ -91,17 +91,19 @@ class _ShoppingItemCardState extends State<ShoppingItemCard> {
   }
 
   Widget _productImage(BuildContext context) {
+    String path = "assets/images/product_images/${widget.cartItem.image}";
     return SizedBox(
       width: 100,
       height: 100,
-      child: Image.asset("assets/images/product_images/grapes.jpeg",
-          fit: BoxFit.fill),
+      child: Image.asset(path, fit: BoxFit.fill),
     );
   }
 
   void onFavoriteIconTapped(BuildContext context) {
     AppDataProvider p = context.read<AppDataProvider>();
-    context.read<ShoppingCartProvider>().onFavoriteIconTapped(widget.cartItem, p );
+    context
+        .read<ShoppingCartProvider>()
+        .onFavoriteIconTapped(widget.cartItem, p);
   }
 
   @override

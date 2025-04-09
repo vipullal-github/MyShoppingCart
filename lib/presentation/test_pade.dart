@@ -37,13 +37,13 @@ class _TestPageState extends State<TestPage> {
   Widget _waiting(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: const Text("TestPage")),
-        body: SingleChildScrollView(
+        body: const SingleChildScrollView(
           child: Column(
             children: [
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: const [
+                  children: [
                     Text("Waiting to load data..."),
                     CircularProgressIndicator(),
                   ],

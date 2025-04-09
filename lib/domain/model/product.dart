@@ -8,8 +8,7 @@ class Product {
   bool isFavorite;
   DateTime createDate;
   DateTime lastModified;
-
-  String? image;
+  String image;
 
   Product(
       {required this.id,
@@ -20,7 +19,7 @@ class Product {
       required this.unit,
       required this.createDate,
       required this.lastModified,
-      this.image,
+      required this.image,
       this.isFavorite = false});
 
   Product.newRecord(
@@ -31,7 +30,7 @@ class Product {
       required this.unit,
       required this.createDate,
       required this.lastModified,
-      this.image,
+      required this.image,
       this.isFavorite = false})
       : id = -1;
 }

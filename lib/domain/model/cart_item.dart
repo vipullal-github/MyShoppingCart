@@ -1,6 +1,7 @@
 import 'product.dart';
 
-class CartItem extends Product {
+class 
+CartItem extends Product {
   double onOrder;
 
   CartItem(
@@ -12,7 +13,7 @@ class CartItem extends Product {
       required super.usualPrice,
       required super.createDate,
       required super.lastModified,
-      super.image})
+      required super.image})
       : onOrder = 0.0;
 
   factory CartItem.fromMasterItem(Product item) {
