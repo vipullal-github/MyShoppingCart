@@ -30,7 +30,7 @@ class CategoryCard extends StatelessWidget {
                     category.imageName,
                     fit: BoxFit.fill,
                     color: Colors.black.withAlpha(10), // Lower alpha
-                    colorBlendMode: BlendMode.darken,
+                    colorBlendMode: BlendMode.lighten,
                   ),
                   Align(
                     alignment: Alignment.topCenter,

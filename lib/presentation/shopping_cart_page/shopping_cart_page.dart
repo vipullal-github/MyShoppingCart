@@ -14,11 +14,47 @@ class ShoppingCartPage extends StatelessWidget {
     );
   }
 
+  Widget _summarySection(
+      BuildContext context, List<CartItem> cartItems, double total) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Flexible(
+            flex: 3,
+            child: Column(
+              children: [
+                Text("Number of Items: ${cartItems.length}"),
+                const SizedBox(height: 6),
+                Text("Total: ${total.toStringAsFixed(2)}"),
+              ],
+            ),
+          ),
+          Flexible(
+            flex: 1,
+            child: ElevatedButton(
+              onPressed: () {
+                // Add your onPressed code here!
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: Colors.lightGreen, // Light green background
+              ),
+              child: const Text('Place Order'),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
   Widget _shoppingCartList(
       BuildContext context, List<CartItem> cartItems, double total) {
     return Column(
       children: [
-        Text("Total: ${total.toStringAsFixed(2)}"),
+        _summarySection(context, cartItems, total),
+        // Text("Total: ${total.toStringAsFixed(2)}"),
         Expanded(
           child: ListView.builder(
             itemCount: cartItems.length,
@@ -38,7 +74,7 @@ class ShoppingCartPage extends StatelessWidget {
     List<CartItem> cartItems = sp.getCartItems();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("ShoppingCartPage"),
+        title: const Text("Checkout Page"),
       ),
       body: cartItems.isEmpty
           ? _emptyCartWidget(context)

@@ -175,7 +175,7 @@ class MockRepository implements RepositoryInterface {
       usualPrice: 1.85,
       createDate: DateTime.now(),
       lastModified: DateTime.now(),
-      image: "carrots.jpg",
+      image: "pepsi.jpg",
     ),
     Product(
       id: 15,
@@ -186,7 +186,7 @@ class MockRepository implements RepositoryInterface {
       usualPrice: 1.90,
       createDate: DateTime.now(),
       lastModified: DateTime.now(),
-      image: "carrots.jpg",
+      image: "coke.jpg",
     ),
   ];
 
