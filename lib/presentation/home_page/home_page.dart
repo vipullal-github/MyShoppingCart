@@ -40,6 +40,9 @@ class _HomePageState extends State<HomePage> {
   Future<void> _loadAllData() async {
     Completer<void> c = Completer();
     widget.provider.loadData().then((value) {
+      if (!context.mounted) {
+        return;
+      }
       context
           .read<ShoppingCartProvider>()
           .createNewShoppingList()
@@ -109,48 +112,50 @@ class _HomePageState extends State<HomePage> {
     int count = context.watch<ShoppingCartProvider>().itemCount;
     List<Widget> actions = [];
     if (currentSheet == 0) {
+      // add a filter button on the cart page
       actions.add(IconButton(
         onPressed: () {},
         icon: const Icon(Icons.filter_list),
       ));
-      Widget cart = Stack(
-        children: [
-          IconButton(
-            onPressed: () => _switchToCartView(context),
-            icon: const Icon(Icons.shopping_cart),
-          ),
-          count != 0
-              ? Positioned(
-                  child: Container(
-                    padding: const EdgeInsets.all(2),
-                    decoration: BoxDecoration(
-                      color: Colors.red,
-                      borderRadius: BorderRadius.circular(6),
-                    ),
-                    constraints: const BoxConstraints(
-                      minWidth: 14,
-                      minHeight: 14,
-                    ),
-                    child: Text(
-                      '$count',
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 8,
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                )
-              : Container()
-        ],
-      );
-      actions.add(cart);
-
-      // actions.add(IconButton(
-      //   onPressed: () {},
-      //   icon: const Icon(Icons.shopping_cart),
-      // ));
     }
+    Widget cart = Stack(
+      children: [
+        IconButton(
+          onPressed: () => _switchToCartView(context),
+          icon: const Icon(Icons.shopping_cart),
+        ),
+        count != 0
+            ? Positioned(
+                child: Container(
+                  padding: const EdgeInsets.all(2),
+                  decoration: BoxDecoration(
+                    color: Colors.red,
+                    borderRadius: BorderRadius.circular(6),
+                  ),
+                  constraints: const BoxConstraints(
+                    minWidth: 14,
+                    minHeight: 14,
+                  ),
+                  child: Text(
+                    '$count',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontSize: 8,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              )
+            : Container()
+      ],
+    );
+    actions.add(cart);
+
+    // actions.add(IconButton(
+    //   onPressed: () {},
+    //   icon: const Icon(Icons.shopping_cart),
+    // ));
+
     return actions;
   }
 
@@ -158,7 +163,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("HomePage"),
+        title: const Text("Create Order Page"),
         actions: _buildPageActions(context),
       ),
       bottomNavigationBar: BottomNavigationBar(

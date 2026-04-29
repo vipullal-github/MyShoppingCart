@@ -20,6 +20,9 @@ class _TestPageState extends State<TestPage> {
   Future<void> _loadAllData() async {
     Completer<void> c = Completer();
     widget.provider.loadData().then((value) {
+      if (!context.mounted) {
+        return;
+      }
       context
           .read<ShoppingCartProvider>()
           .createNewShoppingList()

@@ -6,7 +6,7 @@ class OrderHistoryTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Center(
-      child: Text("Order History View"),
+      child: Text("You don't have any previous orders"),
     );
   }
 }

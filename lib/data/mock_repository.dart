@@ -56,7 +56,7 @@ class MockRepository implements RepositoryInterface {
         createDate: DateTime.now(),
         lastModified: DateTime.now(),
         image: "cabbage.jpg",
-        isFavorite: true),
+      ),
     Product(
         id: 3,
         categoryId: 1,
