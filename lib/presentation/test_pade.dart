@@ -20,10 +20,12 @@ class _TestPageState extends State<TestPage> {
   Future<void> _loadAllData() async {
     Completer<void> c = Completer();
     widget.provider.loadData().then((value) {
-      context
-          .read<ShoppingCartProvider>()
-          .createNewShoppingList()
-          .then((value) => c.complete());
+      if (context.mounted) {
+        context
+            .read<ShoppingCartProvider>()
+            .createNewShoppingList()
+            .then((value) => c.complete());
+      }
     });
     return c.future;
   }
@@ -37,13 +39,13 @@ class _TestPageState extends State<TestPage> {
   Widget _waiting(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: const Text("TestPage")),
-        body: SingleChildScrollView(
+        body: const SingleChildScrollView(
           child: Column(
             children: [
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: const [
+                  children: [
                     Text("Waiting to load data..."),
                     CircularProgressIndicator(),
                   ],

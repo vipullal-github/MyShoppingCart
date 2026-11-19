@@ -39,12 +39,13 @@ class _HomePageState extends State<HomePage> {
 
   Future<void> _loadAllData() async {
     Completer<void> c = Completer();
-    widget.provider.loadData().then((value) {
-      context
+    await widget.provider.loadData();
+    if (mounted) {
+      await context
           .read<ShoppingCartProvider>()
-          .createNewShoppingList()
-          .then((value) => c.complete());
-    });
+          .createNewShoppingList();
+      c.complete();
+    }
     return c.future;
   }
 
