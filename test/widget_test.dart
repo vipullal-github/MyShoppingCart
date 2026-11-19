@@ -41,6 +41,7 @@ void main() {
       usualPrice: 2.0,
       createDate: DateTime.now(),
       lastModified: DateTime.now(),
+      image: "grapes.jpg",
       isFavorite: true,
     );
     cartProvider.favouritesList.add(favorite);

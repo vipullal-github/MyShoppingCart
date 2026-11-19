@@ -92,11 +92,11 @@ class _ShoppingItemCardState extends State<ShoppingItemCard> {
 
   Widget _productImage(BuildContext context) {
     String path = "assets/images/product_images/grapes.jpg";
-    if (widget.cartItem.image != null && widget.cartItem.image!.isNotEmpty) {
+    if (widget.cartItem.image.isNotEmpty) {
       // If image already contains the full path, use it directly
       // Otherwise, prepend the base path
-      if (widget.cartItem.image!.startsWith("assets/")) {
-        path = widget.cartItem.image!;
+      if (widget.cartItem.image.startsWith("assets/")) {
+        path = widget.cartItem.image;
       } else {
         path = "assets/images/product_images/${widget.cartItem.image}";
       }
