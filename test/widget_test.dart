@@ -1,30 +1,74 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:my_shopping_cart/main.dart';
+import 'package:my_shopping_cart/data/mock_repository.dart';
+import 'package:my_shopping_cart/domain/model/cart_item.dart';
+import 'package:my_shopping_cart/presentation/app_data_provider.dart';
+import 'package:my_shopping_cart/presentation/favorites_page/favorites_page.dart';
+import 'package:my_shopping_cart/presentation/shopping_cart_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('favorites page shows empty state', (WidgetTester tester) async {
+    await tester.pumpWidget(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider(
+            create: (_) => AppDataProvider(repository: MockRepository()),
+          ),
+          ChangeNotifierProvider(
+            create: (_) => ShoppingCartProvider()..createNewShoppingList(),
+          ),
+        ],
+        child: const MaterialApp(home: FavoritesPage()),
+      ),
+    );
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    expect(find.text("You don't have any favorites"), findsOneWidget);
+  });
 
-    // Tap the '+' icon and trigger a frame.
+  testWidgets('favorites page adds, removes, and unfavorites items',
+      (WidgetTester tester) async {
+    final appProvider = AppDataProvider(repository: MockRepository());
+    final cartProvider = ShoppingCartProvider();
+    await cartProvider.createNewShoppingList();
+
+    final favorite = CartItem(
+      id: 1,
+      itemName: 'Apples',
+      description: 'Fresh apples',
+      categoryId: 1,
+      unit: 'kg',
+      usualPrice: 2.0,
+      createDate: DateTime.now(),
+      lastModified: DateTime.now(),
+      isFavorite: true,
+    );
+    cartProvider.favouritesList.add(favorite);
+
+    await tester.pumpWidget(
+      MultiProvider(
+        providers: [
+          ChangeNotifierProvider.value(value: appProvider),
+          ChangeNotifierProvider.value(value: cartProvider),
+        ],
+        child: const MaterialApp(home: FavoritesPage()),
+      ),
+    );
+
+    expect(find.text('Apples'), findsOneWidget);
+
     await tester.tap(find.byIcon(Icons.add));
     await tester.pump();
+    expect(cartProvider.itemCount, 1);
+    expect(cartProvider.getCartItems().first.onOrder, 1);
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    await tester.tap(find.byIcon(Icons.remove));
+    await tester.pump();
+    expect(cartProvider.itemCount, 0);
+
+    await tester.tap(find.byIcon(Icons.favorite));
+    await tester.pump();
+    expect(cartProvider.favouritesList, isEmpty);
+    expect(find.text("You don't have any favorites"), findsOneWidget);
   });
 }

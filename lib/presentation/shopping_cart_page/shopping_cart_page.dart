@@ -74,7 +74,7 @@ class ShoppingCartPage extends StatelessWidget {
     List<CartItem> cartItems = sp.getCartItems();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Checkout Page"),
+        title: const Text("Shopping Cart"),
       ),
       body: cartItems.isEmpty
           ? _emptyCartWidget(context)

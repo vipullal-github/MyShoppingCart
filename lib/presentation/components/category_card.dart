@@ -35,9 +35,19 @@ class CategoryCard extends StatelessWidget {
                   ),
                   Align(
                     alignment: Alignment.bottomCenter,
-                    child: Text(
-                      category.description,
-                      style: ts,
+                    child: Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                      decoration: BoxDecoration(
+                        color: Colors.black.withValues(alpha: 0.6),
+                      ),
+                      child: Text(
+                        category.description,
+                        style: ts,
+                        textAlign: TextAlign.center,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
                     ),
                   ),
                 ],
