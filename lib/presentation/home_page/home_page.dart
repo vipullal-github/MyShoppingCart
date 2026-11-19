@@ -41,9 +41,7 @@ class _HomePageState extends State<HomePage> {
     Completer<void> c = Completer();
     await widget.provider.loadData();
     if (mounted) {
-      await context
-          .read<ShoppingCartProvider>()
-          .createNewShoppingList();
+      await context.read<ShoppingCartProvider>().createNewShoppingList();
       c.complete();
     }
     return c.future;
@@ -106,12 +104,18 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
+  void _switchToFavoritesView(BuildContext context) {
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      Navigator.of(context).pushNamed(RoutingManager.favoritesPage);
+    });
+  }
+
   List<Widget> _buildPageActions(BuildContext context) {
     int count = context.watch<ShoppingCartProvider>().itemCount;
     List<Widget> actions = [];
     if (currentSheet == 0) {
       actions.add(IconButton(
-        onPressed: () {},
+        onPressed: () => _switchToFavoritesView(context),
         icon: const Icon(Icons.filter_list),
       ));
       Widget cart = Stack(

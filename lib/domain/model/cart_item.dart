@@ -12,7 +12,8 @@ class CartItem extends Product {
       required super.usualPrice,
       required super.createDate,
       required super.lastModified,
-      super.image})
+      super.image,
+      super.isFavorite})
       : onOrder = 0.0;
 
   factory CartItem.fromMasterItem(Product item) {
@@ -25,6 +26,7 @@ class CartItem extends Product {
         usualPrice: item.usualPrice,
         createDate: item.createDate,
         lastModified: item.lastModified,
-        image: item.image);
+        image: item.image,
+        isFavorite: item.isFavorite);
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:my_shopping_cart/presentation/app_data_provider.dart';
+import 'package:my_shopping_cart/presentation/favorites_page/favorites_page.dart';
 import 'package:my_shopping_cart/presentation/shopping_cart_page/shopping_cart_page.dart';
 import 'package:my_shopping_cart/presentation/test_pade.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +11,7 @@ class RoutingManager {
   static const String homePage = "/";
   static const String masterListPage = "/masteListPage";
   static const String shoppingCartPage = "/shoppingCartPage";
+  static const String favoritesPage = "/favoritesPage";
   static const String testPage = "/testPage";
 
   static Route<dynamic> routingFunction(RouteSettings settings) {
@@ -29,6 +31,10 @@ class RoutingManager {
       case shoppingCartPage:
         return MaterialPageRoute(builder: (BuildContext context) {
           return const ShoppingCartPage();
+        });
+      case favoritesPage:
+        return MaterialPageRoute(builder: (BuildContext context) {
+          return const FavoritesPage();
         });
 
       default:
